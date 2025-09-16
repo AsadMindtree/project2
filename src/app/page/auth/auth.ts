@@ -29,7 +29,7 @@ export class Auth {
   private token = inject(TokenService);
   private router = inject(Router);
 
-  signupForm: this.fb.group({});
+  signupForm: FormGroup;
 
   constructor() {
     this.signupForm = this.fb.group({

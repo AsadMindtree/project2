@@ -1,21 +1,66 @@
 <section class="section">
-  <div class="grid">
-    <div class="mode-cards">
-      <div class="card mode-card">
-        <mat-icon>Login</mat-icon>
-        <div class="">
-          <h3>Login</h3>
-          <p>Access your account</p>
-        </div>
+  <div class="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px">
+    <div
+      class="card"
+      tabindex="0"
+      role="button"
+      [attr.aria.pressed]="mode() === 'login'"
+      (click)="setMode('login')"
+      (keyup.enter)="setMode('login')"
+      style="display: flex; align-items: center; gap: 12px; cursor: pointer"
+    >
+      <mat-icon>Login</mat-icon>
+      <div class="">
+        <h3>Login</h3>
+        <p>Access your Account</p>
       </div>
-      <div class="card mode-card">
-        <mat-icon>
-          <div class="">
-            <h3>Sign Up</h3>
-            <p>Create a new account</p>
-          </div>
-        </mat-icon>
+    </div>
+    <div
+      class="card"
+      tabindex="0"
+      role="button"
+      [attr.aria.pressed]="mode() === 'signup'"
+      (click)="setMode('signup')"
+      (keyup.enter)="setMode('signup')"
+      style="display: flex; align-items: center; gap: 12px; cursor: pointer"
+    >
+      <mat-icon>person_add</mat-icon>
+      <div>
+        <h3>Sign Up</h3>
+        <p>Create a new Account</p>
       </div>
     </div>
   </div>
+
+  <mat-card class="card">
+    @if (mode() === 'login'){
+    <h2>Welcome Back</h2>
+    } @else {
+    <h2>Create your account</h2>
+    } @if (mode() === 'login') {
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.valid)" nonvalidate>
+      <div class="field">
+        <label for="lemail">Email</label>
+        <input id="lemail" name="email" type="email" required [(ngModel)]="loginModel.email" />
+      </div>
+      <div class="field">
+        <label for="lpass">Password</label>
+        <input
+          id="lpass"
+          name="password"
+          type="passwrod"
+          required
+          minlength="6"
+          [(ngModel)]="loginModel.password"
+        />
+      </div>
+      <div class="row">
+        <button class="btn" type="button" [disabled]="!loginForm.valid">Login</button>
+        <button class="btn btn:ghost" type="button" (click)="setMode('signup')">
+          Go to Sign Up
+        </button>
+      </div>
+    </form>
+    }
+  </mat-card>
 </section>
